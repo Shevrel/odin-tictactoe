@@ -1,11 +1,12 @@
 const gameBoard = (function() {
-    const gameBoard = [];
+    const gameBoardArray = [' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '];
 
+    const getGameBoard = () => gameBoardArray;
     const addMarker = (marker, position) => {
         // add marker at specific position decided by mouseclick
         gameBoard[position] = marker;
     }
-    return {addMarker};
+    return {getGameBoard, addMarker};
 })();
 
 const gameSystem = (function(player1, player2) {
@@ -24,6 +25,17 @@ const gameSystem = (function(player1, player2) {
         player2.changeTurnToPlay
     }
     return {initGame, checkGameStatus, changeTurnToPlay};
+})();
+
+const displayController = (function() {
+    const displayGrid = () => {
+        console.log(`  ${gameBoard.getGameBoard()[0]}  |  ${gameBoard.getGameBoard()[1]}  |  ${gameBoard.getGameBoard()[2]}`);
+        console.log('-----|-----|-----');
+        console.log(`  ${gameBoard.getGameBoard()[3]}  |  ${gameBoard.getGameBoard()[4]}  |  ${gameBoard.getGameBoard()[5]}`);
+        console.log('-----|-----|-----');
+        console.log(`  ${gameBoard.getGameBoard()[6]}  |  ${gameBoard.getGameBoard()[7]}  |  ${gameBoard.getGameBoard()[8]}`);
+    }
+    return {displayGrid};
 })();
 
 function createPlayer (name, marker) {
