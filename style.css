@@ -1,0 +1,21 @@
+.grid-container {
+    border: 2px solid blue;
+    height: 300px;
+    width: 300px;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    
+}
+
+div[class^='cell'] {
+    font-size: 3em;
+    height: 100%;
+    width: 100%;
+    border: 1px solid black;
+
+    display: grid;
+    align-items: center;
+    justify-items: center;
+}
