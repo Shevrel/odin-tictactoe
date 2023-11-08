@@ -54,12 +54,14 @@ const gameSystem = (function() {
             if (playerMarker.includes(winningPermutation[i])) {
                 alert(`${player.getPlayerName()} won the game!.`)
                 gameSystem.endGame();
+                return;
             }
         }
         // else check if all fields are full // do it with TurnCount
         if (turnCount === 9){
             alert("Tie!");
             gameSystem.endGame();
+            return;
         }
     }
     const changeTurnToPlay = (player1, player2) => {
@@ -96,6 +98,25 @@ const displayController = (function() {
     return {displayGrid};
 })();
 
+const gameRenderer = (function() {
+    const renderDisplay = (gameBoard) => {
+        for (let i = 0; i < gameBoard.length; i++) {
+            if (gameBoard[i] !== ' ') {
+                const targetCell = document.querySelector(`.cell${i+1}`);
+                console.log(targetCell.textContent);
+                if (!targetCell.textContent) {
+                    targetCell.textContent = gameBoard[i];
+                }
+            }
+        }
+        return;
+    }
+
+    return {renderDisplay};
+})();
+
+
+
 function createPlayer (name, marker) {
     let turnToPlay = false;
     let markerArray = [];
@@ -111,8 +132,8 @@ function createPlayer (name, marker) {
     return {getPlayerName, getMarker, getTurnToPlay, addToMarkerArray, getMarkerArray, changeTurnToPlay};
 }
 
-const player1 = createPlayer("Player 1", "x");
-const player2 = createPlayer("Player 2", "o");
+const player1 = createPlayer("Player 1", "X");
+const player2 = createPlayer("Player 2", "O");
 
 // init game and show grid
 gameSystem.initGame(player1, player2);
@@ -124,6 +145,7 @@ while (gameSystem.getGameStatus()) {
     // show grid
     displayController.displayGrid();
     // check if someone has won
+    gameRenderer.renderDisplay(gameBoard.getGameBoard());
     gameSystem.checkGameEndCondition(playerOnTurn);
     // change players turn
     gameSystem.changeTurnToPlay(player1, player2);
